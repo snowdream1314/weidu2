@@ -12,6 +12,7 @@ import com.caibo.weidu.main.account.AccountFragment;
 import com.caibo.weidu.main.like.LikeFragment;
 import com.caibo.weidu.main.more.MoreFragment;
 import com.caibo.weidu.util.UserDataUtil;
+import com.caibo.weidu.util.WDDelegate;
 import com.caibo.weidu.util.WDRequest;
 
 public class MainActivity extends FragmentActivity {
@@ -31,7 +32,7 @@ public class MainActivity extends FragmentActivity {
         if (!UserDataUtil.isRegistered()) {
             //注册
             UserDataUtil.getAndSaveDeviceId();
-            WDRequest request = new WDRequest();
+            WDRequest request = new WDRequest(this);
             request.register(UserDataUtil.getDeviceId());
         }
     }
