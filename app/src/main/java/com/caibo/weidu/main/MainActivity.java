@@ -3,6 +3,7 @@ package com.caibo.weidu.main;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentTabHost;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -11,8 +12,10 @@ import com.caibo.weidu.R;
 import com.caibo.weidu.main.account.AccountFragment;
 import com.caibo.weidu.main.like.LikeFragment;
 import com.caibo.weidu.main.more.MoreFragment;
+import com.caibo.weidu.util.UserUtil;
+import com.caibo.weidu.util.WDRequest;
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends FragmentActivity implements WDRequest.WDRequestDelegate{
 
     private FragmentTabHost mTabHost;
 
@@ -25,6 +28,13 @@ public class MainActivity extends FragmentActivity {
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
         initTabHost();
+
+        if (!UserUtil.isRegistered(this)) {
+            //注册
+            WDRequest request = new WDRequest(this);
+            request.setDelegate(this);
+            request.register(UserUtil.getDeviceId(this));
+        }
     }
 
     private void initTabHost() {
@@ -45,5 +55,19 @@ public class MainActivity extends FragmentActivity {
         title.setText(name);
         image.setImageResource(drawableId);
         return view;
+    }
+
+    @Override
+    public void requestSuccess(WDRequest req, String result) {
+
+        if (req.tag == WDRequest.Req_Tag.TAG_REGISTER) {
+            Log.i("TAG_REGISTER", result);
+            UserUtil.setSession(this, result);
+        }
+    }
+
+    @Override
+    public void requestFail(WDRequest req, String message) {
+        Log.i("requestFail", message);
     }
 }
