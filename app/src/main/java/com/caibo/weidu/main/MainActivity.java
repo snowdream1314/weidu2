@@ -14,6 +14,8 @@ import com.caibo.weidu.main.like.LikeFragment;
 import com.caibo.weidu.main.more.MoreFragment;
 import com.caibo.weidu.util.UserUtil;
 import com.caibo.weidu.util.WDRequest;
+import com.nostra13.universalimageloader.core.ImageLoader;
+import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
 public class MainActivity extends FragmentActivity implements WDRequest.WDRequestDelegate{
 
@@ -28,6 +30,8 @@ public class MainActivity extends FragmentActivity implements WDRequest.WDReques
         mTabHost.setup(this, getSupportFragmentManager(), android.R.id.tabcontent);
 
         initTabHost();
+
+        ImageLoader.getInstance().init(ImageLoaderConfiguration.createDefault(MainActivity.this));
 
         if (!UserUtil.isRegistered(this)) {
             //注册
@@ -60,7 +64,7 @@ public class MainActivity extends FragmentActivity implements WDRequest.WDReques
     @Override
     public void requestSuccess(WDRequest req, String result) {
 
-        if (req.tag == WDRequest.Req_Tag.TAG_REGISTER) {
+        if (req.tag == WDRequest.Req_Tag.Tag_Register) {
             Log.i("TAG_REGISTER", result);
             UserUtil.setSession(this, result);
         }

@@ -14,14 +14,15 @@ import java.util.Map;
 public class WDRequest implements DataUtil.NetReceiveDelete{
 
     public enum Req_Tag{
-        TAG_REGISTER,
+        Tag_Register,
 
-        TAG_ACCOUNT_LIST,
-        TAG_ACCOUNT_DETAIL,
+        Tag_Account_Categorys,
+        Tag_Account_List,
+        Tag_Account_Detail,
 
-        TAG_FAVORITE,
-        TAG_FAVORITE_REMOVE,
-        TAG_FAVORITE_LIST;
+        Tag_Favorite,
+        Tag_Favorite_Remove,
+        Tag_Favorite_List;
     }
 
     public interface WDRequestDelegate {
@@ -46,12 +47,11 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
     public void register(String deviceId) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("deviceId",deviceId);
-        request("UserAuth/registerUser", params, Req_Tag.TAG_REGISTER);
+        request("UserAuth/registerUser", params, Req_Tag.Tag_Register);
     }
 
-    public void account_category(String page) {
-        Map<String, String> params = new HashMap<String, String>();
-        params.put("page", page);
+    public void account_category() {
+        request("AccountCategory/cats", null, Req_Tag.Tag_Account_Categorys);
     }
 
     public void account_detail(String accountId) {
@@ -75,8 +75,14 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
     }
 
 
+    /********************************** deal with params *****************************************/
     private String appendParams(String method, Map<String, String> params)  {
         StringBuilder sb = new StringBuilder(WDConstant.URL);
+
+        if (method.equals("AccountCategory/cats")) {
+            return sb.append(method).toString();
+        }
+
         sb.append(method).append("?");
 
         params.put("appcode", WDConstant.APP_CODE);
