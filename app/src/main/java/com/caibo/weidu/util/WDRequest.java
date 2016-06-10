@@ -56,17 +56,21 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
 
     public void account_detail(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("accountId", accountId);
+        params.put("a_id", accountId);
+        params.put("format", "clientdetailview_v1");
+        request("Account/accountDetail", params, Req_Tag.Tag_Account_Detail);
     }
 
     public void favorite(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("accountId", accountId);
+        params.put("a_id", accountId);
+        request("AccountFavorite/addFavorite", params, Req_Tag.Tag_Favorite);
     }
 
     public void favorite_remove(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("accountId", accountId);
+        params.put("a_id", accountId);
+        request("AccountFavorite/removeFav", params, Req_Tag.Tag_Favorite_Remove);
     }
 
     public void favorite_list(String page) {
@@ -100,6 +104,7 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
         }
 
         sb.deleteCharAt(sb.length() - 1);
+        Log.i("request_url", sb.toString());
         return sb.toString();
     }
 

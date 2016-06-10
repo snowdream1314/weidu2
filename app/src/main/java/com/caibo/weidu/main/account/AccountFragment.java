@@ -35,6 +35,8 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -140,7 +142,6 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            Log.i("getView", "getView");
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.account_cell_listview, null);
             }
@@ -217,13 +218,12 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            Log.i("gridView_getView", "getView");
             if (convertView == null) {
                 convertView = LayoutInflater.from(mContext).inflate(R.layout.account_cell_gridview, null);
             }
 
             final Recommend_Account recommendAccount = recommendAccounts.get(position);
-            ImageView accountImage = (ImageView) ViewHolder.get(convertView, R.id.iv_account_image);
+            CircleImageView accountImage = (CircleImageView) ViewHolder.get(convertView, R.id.civ_account_image);
             TextView accountName = (TextView) ViewHolder.get(convertView, R.id.tv_account_name);
 
             WDImageLoaderUtil.displayImage(recommendAccount.getA_logo().toString(), accountImage, R.mipmap.account_image);

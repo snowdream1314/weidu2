@@ -30,7 +30,7 @@ public class TitleLayoutActivity extends Activity implements TitleLayout{
     }
 
     private void showBackButton(View view, View.OnClickListener clickListener) {
-        ImageButton back = (ImageButton) view.findViewById(R.id.ib_back);
+        ImageButton back = (ImageButton) findViewById(R.id.ib_back);
         if (clickListener == null) {
             back.setOnClickListener(new View.OnClickListener() {
                 @Override

@@ -17,6 +17,8 @@ import com.caibo.weidu.util.WDRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
 import com.nostra13.universalimageloader.core.ImageLoaderConfiguration;
 
+import org.json.JSONObject;
+
 public class MainActivity extends FragmentActivity implements WDRequest.WDRequestDelegate{
 
     private FragmentTabHost mTabHost;
@@ -62,11 +64,18 @@ public class MainActivity extends FragmentActivity implements WDRequest.WDReques
     }
 
     @Override
-    public void requestSuccess(WDRequest req, String result) {
+    public void requestSuccess(WDRequest req, String data) {
 
         if (req.tag == WDRequest.Req_Tag.Tag_Register) {
-            Log.i("TAG_REGISTER", result);
-            UserUtil.setSession(this, result);
+            Log.i("TAG_REGISTER", data);
+
+            try {
+                JSONObject jsonObject = new JSONObject(data);
+                Log.i("session", jsonObject.getJSONObject("data").getString("session"));
+                UserUtil.setSession(this, jsonObject.getJSONObject("data").getString("session"));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
