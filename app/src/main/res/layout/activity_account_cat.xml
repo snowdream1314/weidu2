@@ -3,8 +3,25 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context="com.caibo.weidu.main.account.accountcategory.AccountCatActivity">
 
     <include layout="@layout/layout_title"/>
+
+    <com.caibo.weidu.modle.PagerSlidingTabStrip
+        android:id="@+id/pst_pagerSlidingTab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        app:pstsIndicatorColor="#30da4c"
+        app:pstsIndicatorHeight="3dp"
+        app:pstsShouldExpand="true"
+        app:mySelectedTabTextColor="#45bf48"
+        app:mySelectedTabTextSize="18sp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

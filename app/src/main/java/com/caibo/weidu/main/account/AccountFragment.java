@@ -46,6 +46,7 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
     private ListView mListView;
     private List<Accounts> accountsList = new ArrayList<Accounts>();
     private AccountsAdapter accountsAdapter;
+    private boolean initial = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -66,7 +67,7 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
             initData();
 
             mListView = (ListView)rootView.findViewById(R.id.lv_account);
-            accountsAdapter = new AccountsAdapter(getContext(), accountsList);
+            accountsAdapter = new AccountsAdapter(getActivity(), accountsList);
             mListView.setAdapter(accountsAdapter);
         }
 
@@ -79,9 +80,12 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
     }
 
     private void initData() {
-        WDRequest request = new WDRequest(getContext());
-        request.setDelegate(this);
-        request.account_category();
+        if (!initial) {
+            initial = true;
+            WDRequest request = new WDRequest(getActivity());
+            request.setDelegate(this);
+            request.account_category();
+        }
     }
 
     @Override

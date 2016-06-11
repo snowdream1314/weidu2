@@ -17,7 +17,7 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
         Tag_Register,
 
         Tag_Account_Categorys,
-        Tag_Account_List,
+        Tag_Category_Accounts,
         Tag_Account_Detail,
 
         Tag_Favorite,
@@ -54,6 +54,13 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
         request("AccountCategory/cats", null, Req_Tag.Tag_Account_Categorys);
     }
 
+    public void category_accounts(String ac_id, int page) {
+        Map<String, String> params = new HashMap<String, String>();
+        params.put("ac_id", ac_id);
+        params.put("p", page+"");
+        request("Account/accounts", params, Req_Tag.Tag_Category_Accounts);
+    }
+
     public void account_detail(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("a_id", accountId);
@@ -73,9 +80,10 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
         request("AccountFavorite/removeFav", params, Req_Tag.Tag_Favorite_Remove);
     }
 
-    public void favorite_list(String page) {
+    public void favorite_list(int page) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("page", page);
+        params.put("p", page+"");
+        request("AccountFavorite/favList", params, Req_Tag.Tag_Favorite_List);
     }
 
 

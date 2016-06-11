@@ -33,6 +33,9 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
 
     private String accountId;
     private boolean favorite = false;
+    private Activity activity;
+
+    public static final int AccountDetailActivityRequestCode = 10002;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +46,7 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
         showBackButton(null);
 
         accountId = getIntent().getStringExtra("account_id");
+        activity  = AccountDetailActivity.this;
 
         initView();
 
@@ -166,11 +170,13 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
             Log.i("Tag_Favorite", data);
             favorite = true;
             like.setImageResource(R.mipmap.like_select);
+            activity.setResult(Activity.RESULT_OK);
         }
         else if (req.tag == WDRequest.Req_Tag.Tag_Favorite_Remove) {
             Log.i("Tag_Favorite_Remove", data);
             favorite = false;
             like.setImageResource(R.mipmap.like_normal);
+            activity.setResult(Activity.RESULT_OK);
         }
     }
 

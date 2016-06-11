@@ -22,15 +22,16 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.3.0'
-    compile 'com.android.support:support-v4:23.3.0'
-
     compile('de.hdodenhof:circleimageview:2.0.0') {
         exclude module: 'support-v4'
     }
-
+    compile project(':library-EnhancedListView')
     compile files('E:/android_studio_projects/weidu2/libs/okhttp-3.2.0.jar')
     compile files('E:/android_studio_projects/weidu2/libs/okio-1.7.0.jar')
     compile files('E:/android_studio_projects/weidu2/libs/gson-2.3.1.jar')
     compile files('E:/android_studio_projects/weidu2/libs/universal-image-loader-1.9.5.jar')
+    compile files('E:/android_studio_projects/weidu2/libs/PagerSlidingTabStrip.jar')
+    compile 'com.android.support:appcompat-v7:23.3.0'
+    compile 'com.android.support:support-v4:23.3.0'
+    compile 'com.baoyz.pullrefreshlayout:library:1.2.0'
 }

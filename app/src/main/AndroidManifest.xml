@@ -35,7 +35,8 @@
         <activity
             android:name=".main.account.accountdetail.AccountDetailActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".main.account.subscribe.AccountSubscribeActivity"></activity>
+        <activity android:name=".main.account.subscribe.AccountSubscribeActivity" />
+        <activity android:name=".base.PullRequestMoreActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,8 @@
 package com.caibo.weidu.base;
 
 import android.app.Activity;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -9,7 +11,7 @@ import android.widget.TextView;
 
 import com.caibo.weidu.R;
 
-public class TitleLayoutActivity extends Activity implements TitleLayout{
+public class TitleLayoutActivity extends FragmentActivity implements TitleLayout{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

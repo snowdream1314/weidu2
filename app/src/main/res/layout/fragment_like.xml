@@ -2,14 +2,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.caibo.weidu.main.like.LikeFragment">
 
     <include layout="@layout/layout_title"/>
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
+
+    <com.baoyz.widget.PullRefreshLayout
+        android:id="@+id/prl_refresh_layout"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
+
+        <de.timroes.android.listview.EnhancedListView
+            android:id="@+id/lv_like"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+        </de.timroes.android.listview.EnhancedListView>
+
+    </com.baoyz.widget.PullRefreshLayout>
 
 </LinearLayout>

@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\elv_popup_hide.xml",
+        "source": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\bundles\\debug\\res\\anim\\elv_popup_hide.xml"
+    },
+    {
+        "merged": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\res\\merged\\androidTest\\debug\\anim\\elv_popup_show.xml",
+        "source": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\bundles\\debug\\res\\anim\\elv_popup_show.xml"
+    }
+]

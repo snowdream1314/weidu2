@@ -1,0 +1,18 @@
+[
+    {
+        "merged": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\elv_popup_bg.xml",
+        "source": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\bundles\\debug\\res\\drawable\\elv_popup_bg.xml"
+    },
+    {
+        "merged": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\elv_undo_btn_bg.xml",
+        "source": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\bundles\\debug\\res\\drawable\\elv_undo_btn_bg.xml"
+    },
+    {
+        "merged": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\elv_undo_btn_bg_pressed.xml",
+        "source": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\bundles\\debug\\res\\drawable\\elv_undo_btn_bg_pressed.xml"
+    },
+    {
+        "merged": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\elv_undo_btn_bg_focused.xml",
+        "source": "E:\\android_studio_projects\\weidu2\\library-EnhancedListView\\build\\intermediates\\bundles\\debug\\res\\drawable\\elv_undo_btn_bg_focused.xml"
+    }
+]
