@@ -10,11 +10,12 @@ import android.view.ViewGroup;
 
 import com.caibo.weidu.R;
 import com.caibo.weidu.base.TitleLayoutFragment;
+import com.caibo.weidu.util.WDRequest;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class AccountFragment extends TitleLayoutFragment {
+public class AccountFragment extends TitleLayoutFragment implements WDRequest.WDRequestDelegate{
 
     private View rootView;
 
@@ -33,8 +34,20 @@ public class AccountFragment extends TitleLayoutFragment {
 
             View view = rootView;
             setTitleLayoutTitle(view, "公众号");
+
+
         }
 
         return rootView;
+    }
+
+    @Override
+    public void requestSuccess(WDRequest req, String result) {
+
+    }
+
+    @Override
+    public void requestFail(WDRequest req, String result) {
+
     }
 }
