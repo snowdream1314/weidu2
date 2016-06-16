@@ -14,14 +14,15 @@ import java.util.Map;
 public class WDRequest implements DataUtil.NetReceiveDelete{
 
     public enum Req_Tag{
-        TAG_REGISTER,
+        Tag_Register,
 
-        TAG_ACCOUNT_LIST,
-        TAG_ACCOUNT_DETAIL,
+        Tag_Account_Categorys,
+        Tag_Category_Accounts,
+        Tag_Account_Detail,
 
-        TAG_FAVORITE,
-        TAG_FAVORITE_REMOVE,
-        TAG_FAVORITE_LIST;
+        Tag_Favorite,
+        Tag_Favorite_Remove,
+        Tag_Favorite_List;
     }
 
     public interface WDRequestDelegate {
@@ -46,37 +47,54 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
     public void register(String deviceId) {
         Map<String, String> params = new HashMap<String, String>();
         params.put("deviceId",deviceId);
-        request("UserAuth/registerUser", params, Req_Tag.TAG_REGISTER);
+        request("UserAuth/registerUser", params, Req_Tag.Tag_Register);
     }
 
-    public void account_category(String page) {
+    public void account_category() {
+        request("AccountCategory/cats", null, Req_Tag.Tag_Account_Categorys);
+    }
+
+    public void category_accounts(String ac_id, int page) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("page", page);
+        params.put("ac_id", ac_id);
+        params.put("p", page+"");
+        request("Account/accounts", params, Req_Tag.Tag_Category_Accounts);
     }
 
     public void account_detail(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("accountId", accountId);
+        params.put("a_id", accountId);
+        params.put("format", "clientdetailview_v1");
+        request("Account/accountDetail", params, Req_Tag.Tag_Account_Detail);
     }
 
     public void favorite(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("accountId", accountId);
+        params.put("a_id", accountId);
+        request("AccountFavorite/addFavorite", params, Req_Tag.Tag_Favorite);
     }
 
     public void favorite_remove(String accountId) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("accountId", accountId);
+        params.put("a_id", accountId);
+        request("AccountFavorite/removeFav", params, Req_Tag.Tag_Favorite_Remove);
     }
 
-    public void favorite_list(String page) {
+    public void favorite_list(int page) {
         Map<String, String> params = new HashMap<String, String>();
-        params.put("page", page);
+        params.put("p", page+"");
+        request("AccountFavorite/favList", params, Req_Tag.Tag_Favorite_List);
     }
 
 
+    /********************************** deal with params *****************************************/
     private String appendParams(String method, Map<String, String> params)  {
         StringBuilder sb = new StringBuilder(WDConstant.URL);
+
+        if (method.equals("AccountCategory/cats")) {
+            return sb.append(method).toString();
+        }
+
         sb.append(method).append("?");
 
         params.put("appcode", WDConstant.APP_CODE);
@@ -94,6 +112,7 @@ public class WDRequest implements DataUtil.NetReceiveDelete{
         }
 
         sb.deleteCharAt(sb.length() - 1);
+        Log.i("request_url", sb.toString());
         return sb.toString();
     }
 

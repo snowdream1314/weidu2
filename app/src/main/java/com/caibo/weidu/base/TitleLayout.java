@@ -7,4 +7,5 @@ import android.view.View;
  */
 public interface TitleLayout {
     public void setTitleLayoutTitle(View view, String title);
+    public void showBackButton(View view);
 }

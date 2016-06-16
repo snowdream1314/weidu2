@@ -11,6 +11,7 @@ import okhttp3.Request;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 
+
 /**
  * Created by snow on 2016/6/4.
  */
@@ -77,11 +78,12 @@ public class DataUtil {
 
 
                 Response response = null;
+                DES des = new DES();
                 String result = null;
                 try {
                     response = client.newCall(request).execute();
                     if (response != null && response.isSuccessful()) {
-                        result = response.body().string();
+                        result = des.decrypt(response.body().string());
                     } else {
                         return "0";
                     }

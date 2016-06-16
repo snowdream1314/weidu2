@@ -1,14 +1,14 @@
 package com.caibo.weidu.base;
 
-import android.app.Activity;
-import android.support.v7.app.AppCompatActivity;
+import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.caibo.weidu.R;
 
-public class TitleLayoutActivity extends Activity implements TitleLayout{
+public class TitleLayoutActivity extends FragmentActivity implements TitleLayout{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,5 +21,26 @@ public class TitleLayoutActivity extends Activity implements TitleLayout{
         if ( titleView != null ) {
             titleView.setText(title);
         }
+    }
+
+    @Override
+    public void showBackButton(View view) {
+        showBackButton(view, null);
+    }
+
+    private void showBackButton(View view, View.OnClickListener clickListener) {
+        ImageButton back = (ImageButton) findViewById(R.id.ib_back);
+        if (clickListener == null) {
+            back.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    finish();
+                }
+            });
+        } else {
+            back.setOnClickListener(clickListener);
+        }
+
+        back.setVisibility(View.VISIBLE);
     }
 }

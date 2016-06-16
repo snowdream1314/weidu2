@@ -3,14 +3,13 @@
     package="com.caibo.weidu">
 
     <!-- 连接网络 -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- 读取手机状态 -->
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <!-- 读写SD卡 -->
-    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -18,14 +17,27 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".main.MainActivity">
+        <activity
+            android:name=".main.MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".base.TitleLayoutActivity"></activity>
+        <activity
+            android:name=".base.TitleLayoutActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.account.accountcategory.AccountCatActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".main.account.accountdetail.AccountDetailActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".main.account.subscribe.AccountSubscribeActivity" />
+        <activity android:name=".base.PullRequestMoreActivity" />
+        <activity android:name=".main.WebActivity"></activity>
     </application>
 
 </manifest>

@@ -3,7 +3,8 @@
      <!-- <item android:drawable="@drawable/like_normal" /> -->
     
     <item android:state_selected="true" android:drawable="@mipmap/like_select" />
-    
     <item android:state_selected="false" android:drawable="@mipmap/like_normal" />
+    <item android:state_pressed="true" android:drawable="@mipmap/like_select" />
+    <item android:state_pressed="false" android:drawable="@mipmap/like_normal" />
     
 </selector>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+	<string name="elv_undo">撤销</string>
+	<string name="elv_undo_all">撤销所有</string>
+	<string name="elv_item_deleted">删除记录</string>
+	<string name="elv_n_items_deleted">%1$s条记录被删除</string>
+	<string name="elv_suredo_all">删除所有</string>
+	<string name="elv_suredo">删除</string>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    xmlns:pst="http://schemas.android.com/apk/res-auto"
+    tools:context="com.caibo.weidu.main.account.accountcategory.AccountCatActivity">
+
+    <include layout="@layout/layout_title"/>
+
+    <com.gxz.PagerSlidingTabStrip
+        android:id="@+id/pst_pagerSlidingTab"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:textSize="16sp"
+        pst:pstsDividerColor="@android:color/transparent"
+        pst:pstsScaleZoomMax="0.2"
+        pst:pstsShouldExpand="true"
+        pst:pstsTextSelectedColor="#30da4c"
+        pst:pstsIndicatorColor="#F02E1F"
+        pst:pstsIndicatorHeight="1dp"
+        pst:pstsUnderlineColor="@android:color/transparent"
+        pst:pstsTabPaddingLeftRight="15dp"
+        pst:pstsScrollOffset="40dp"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/vp_viewPager"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

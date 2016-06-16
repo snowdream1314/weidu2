@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:id="@+id/ll_listview_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/ll_category"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="5dp"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_account_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="15dp"
+                android:textSize="15sp" />
+
+            <RelativeLayout
+                android:id="@+id/rl_category_tab"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="15dp"
+                android:layout_gravity="bottom"
+                android:layout_marginLeft="5dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/iv_tab_image"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@mipmap/tab"/>
+
+                <View
+                    android:id="@+id/v_tab_line"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#d4d4d4"
+                    android:layout_alignParentBottom="true"/>
+
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <com.caibo.weidu.main.account.gridview.NoScrollGridView
+            android:id="@+id/gv_gridview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:numColumns="4"
+            android:listSelector="#00000000"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/v_wave_line"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/wave_line" />
+
+</LinearLayout>
