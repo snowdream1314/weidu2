@@ -1,4 +1,4 @@
-package com.caibo.weidu.main;
+package com.caibo.weidu.main.web;
 
 import android.os.Bundle;
 import android.webkit.WebView;

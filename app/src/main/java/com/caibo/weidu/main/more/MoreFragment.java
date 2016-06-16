@@ -2,10 +2,8 @@ package com.caibo.weidu.main.more;
 
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.widget.SimpleCursorAdapter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,7 +16,7 @@ import android.widget.TextView;
 import com.caibo.weidu.R;
 import com.caibo.weidu.base.TitleLayoutFragment;
 import com.caibo.weidu.bean.More;
-import com.caibo.weidu.main.WebActivity;
+import com.caibo.weidu.main.web.WebActivity;
 import com.caibo.weidu.viewholder.ViewHolder;
 
 import java.util.ArrayList;

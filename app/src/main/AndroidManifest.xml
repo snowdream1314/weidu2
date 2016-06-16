@@ -37,7 +37,7 @@
             android:screenOrientation="portrait" />
         <activity android:name=".main.account.subscribe.AccountSubscribeActivity" />
         <activity android:name=".base.PullRequestMoreActivity" />
-        <activity android:name=".main.WebActivity"></activity>
+        <activity android:name=".main.web.WebActivity"></activity>
     </application>
 
 </manifest>
