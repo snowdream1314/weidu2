@@ -12,7 +12,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.caibo.weidu.R;
@@ -20,6 +19,7 @@ import com.caibo.weidu.base.PullRequestMoreFragment;
 import com.caibo.weidu.bean.Account;
 import com.caibo.weidu.main.account.accountdetail.AccountDetailActivity;
 import com.caibo.weidu.util.JsonUtil;
+import com.caibo.weidu.util.WDDialogUtil;
 import com.caibo.weidu.util.WDImageLoaderUtil;
 import com.caibo.weidu.util.WDRequest;
 import com.caibo.weidu.viewholder.EmptyView;
@@ -32,6 +32,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import de.timroes.android.listview.EnhancedListView;
 
@@ -158,6 +159,7 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
     private void loadData() {
         if (!isLoading) {
             isLoading = true;
+            WDDialogUtil.showLoadingDialog(getContext());
             WDRequest request = new WDRequest(getActivity());
             request.setDelegate(this);
             request.favorite_list(current_page + 1);
@@ -196,18 +198,29 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
 
             isLoading = false;
             setRefreshing(false);
+            WDDialogUtil.dismissDialog(getContext());
         }
         else if (req.tag == WDRequest.Req_Tag.Tag_Favorite_Remove) {
             Log.i("favorite_remove", data);
 
             isLoading = false;
             setRefreshing(false);
+            WDDialogUtil.dismissDialog(getContext());
         }
     }
 
     @Override
-    public void requestFail(WDRequest req, String data) {
+    public void requestFail(WDRequest req, String message) {
         Log.i("favorite_list", "fail");
+
+        isLoading = false;
+        setRefreshing(false);
+        WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                reloadData();
+            }
+        });
     }
 
 

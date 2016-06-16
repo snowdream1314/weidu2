@@ -17,11 +17,13 @@ import com.caibo.weidu.base.TitleLayoutActivity;
 import com.caibo.weidu.main.account.subscribe.AccountSubscribeActivity;
 import com.caibo.weidu.util.JsonUtil;
 import com.caibo.weidu.util.StringUtil;
+import com.caibo.weidu.util.WDDialogUtil;
 import com.caibo.weidu.util.WDImageLoaderUtil;
 import com.caibo.weidu.util.WDRequest;
 
 import org.json.JSONObject;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class AccountDetailActivity extends TitleLayoutActivity implements WDRequest.WDRequestDelegate{
@@ -33,6 +35,7 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
 
     private String accountId;
     private boolean favorite = false;
+    private boolean isLoading = false;
     private Activity activity;
 
     public static final int AccountDetailActivityRequestCode = 10002;
@@ -79,11 +82,13 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
             switch (v.getId()) {
                 case R.id.ll_like_layout:
                     if (favorite) {
+                        WDDialogUtil.showLoadingDialog(AccountDetailActivity.this);
                         WDRequest request = new WDRequest(AccountDetailActivity.this);
                         request.setDelegate(AccountDetailActivity.this);
                         request.favorite_remove(accountId);
                     }
                     else {
+                        WDDialogUtil.showLoadingDialog(AccountDetailActivity.this);
                         WDRequest request = new WDRequest(AccountDetailActivity.this);
                         request.setDelegate(AccountDetailActivity.this);
                         request.favorite(accountId);
@@ -104,9 +109,16 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
 
     private void initData() {
 
-        WDRequest request = new WDRequest(this);
-        request.setDelegate(this);
-        request.account_detail(accountId);
+        if (!isLoading) {
+            isLoading = true;
+            WDDialogUtil.showLoadingDialog(this);
+
+            WDRequest request = new WDRequest(this);
+            request.setDelegate(this);
+            request.account_detail(accountId);
+
+        }
+
     }
 
     @Override
@@ -165,23 +177,46 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
             } catch (Exception e){
                 e.printStackTrace();
             }
+
+            isLoading = false;
+            WDDialogUtil.dismissDialog(this);
         }
         else if (req.tag == WDRequest.Req_Tag.Tag_Favorite) {
             Log.i("Tag_Favorite", data);
             favorite = true;
             like.setImageResource(R.mipmap.like_select);
             activity.setResult(Activity.RESULT_OK);
+
+            isLoading = false;
+            WDDialogUtil.dismissDialog(this);
         }
         else if (req.tag == WDRequest.Req_Tag.Tag_Favorite_Remove) {
             Log.i("Tag_Favorite_Remove", data);
             favorite = false;
             like.setImageResource(R.mipmap.like_normal);
             activity.setResult(Activity.RESULT_OK);
+
+            isLoading = false;
+            WDDialogUtil.dismissDialog(this);
         }
     }
 
     @Override
     public void requestFail(WDRequest req, String message) {
         Log.i("account_detail", message);
+
+        isLoading = false;
+        if (req.tag == WDRequest.Req_Tag.Tag_Account_Detail) {
+            WDDialogUtil.changeLoadingDialogToError(this, message, true, new SweetAlertDialog.OnSweetClickListener() {
+                @Override
+                public void onClick(SweetAlertDialog sweetAlertDialog) {
+                    initData();
+                }
+            });
+        }
+        else {
+            WDDialogUtil.changeLoadingDialogToError(this, message);
+        }
+
     }
 }

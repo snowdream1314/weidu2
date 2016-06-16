@@ -18,6 +18,7 @@ import android.widget.TextView;
 import com.caibo.weidu.R;
 import com.caibo.weidu.base.TitleLayoutFragment;
 import com.caibo.weidu.main.account.gridview.NoScrollGridView;
+import com.caibo.weidu.util.WDDialogUtil;
 import com.caibo.weidu.util.WDRequest;
 import com.caibo.weidu.bean.Accounts;
 import com.caibo.weidu.bean.Recommend_Account;
@@ -35,6 +36,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -82,6 +84,7 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
     private void initData() {
         if (!initial) {
             initial = true;
+            WDDialogUtil.showLoadingDialog(getContext());
             WDRequest request = new WDRequest(getActivity());
             request.setDelegate(this);
             request.account_category();
@@ -109,12 +112,22 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
             } catch (Exception e) {
                 e.printStackTrace();
             }
+
+            WDDialogUtil.dismissDialog(getContext());
+
         }
     }
 
     @Override
     public void requestFail(WDRequest req, String message) {
         Log.i("Account_Category", "fail");
+        WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                initial = false;
+                initData();
+            }
+        });
     }
 
 

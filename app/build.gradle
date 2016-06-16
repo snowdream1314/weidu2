@@ -19,13 +19,21 @@ android {
     }
 }
 
+
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     testCompile 'junit:junit:4.12'
+
     compile('de.hdodenhof:circleimageview:2.0.0') {
         exclude module: 'support-v4'
     }
+    compile(project(':library-sweet-alert-dialog')) {
+        exclude module: 'appcompat-v7'
+        exclude module: 'support-v4'
+    }
+
     compile project(':library-EnhancedListView')
+
     compile 'com.android.support:appcompat-v7:23.3.0'
     compile 'com.android.support:support-v4:23.3.0'
     compile 'com.baoyz.pullrefreshlayout:library:1.2.0'

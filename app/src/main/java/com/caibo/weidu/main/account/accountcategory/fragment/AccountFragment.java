@@ -21,6 +21,7 @@ import com.caibo.weidu.base.PullRequestMoreFragment;
 import com.caibo.weidu.bean.Account;
 import com.caibo.weidu.main.account.accountdetail.AccountDetailActivity;
 import com.caibo.weidu.util.JsonUtil;
+import com.caibo.weidu.util.WDDialogUtil;
 import com.caibo.weidu.util.WDImageLoaderUtil;
 import com.caibo.weidu.util.WDRequest;
 import com.caibo.weidu.viewholder.EmptyView;
@@ -33,6 +34,7 @@ import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
+import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import de.timroes.android.listview.EnhancedListView;
 
@@ -102,8 +104,8 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
 
     public void loadData() {
         if (!isLoading) {
-            Log.i("loadData", "loadData");
             isLoading = true;
+            WDDialogUtil.showLoadingDialog(getContext());
             WDRequest request = new WDRequest(mContext);
             request.setDelegate(AccountFragment.this);
             request.category_accounts(ac_id, current_page + 1);
@@ -155,12 +157,22 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
 
             isLoading = false;
             setRefreshing(false);
+            WDDialogUtil.dismissDialog(getContext());
         }
     }
 
     @Override
-    public void requestFail(WDRequest req, String data) {
+    public void requestFail(WDRequest req, String message) {
         Log.i("favorite_list", "fail");
+
+        isLoading = false;
+        setRefreshing(false);
+        WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {
+            @Override
+            public void onClick(SweetAlertDialog sweetAlertDialog) {
+                reloadData();
+            }
+        });
     }
 
 
