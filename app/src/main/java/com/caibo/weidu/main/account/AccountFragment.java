@@ -49,6 +49,7 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
     private List<Accounts> accountsList = new ArrayList<Accounts>();
     private AccountsAdapter accountsAdapter;
     private boolean initial = false;
+    private boolean isLoading = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,13 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
     private void initData() {
         if (!initial) {
             initial = true;
+            loadData();
+        }
+    }
+
+    private void loadData() {
+        if (!isLoading) {
+            isLoading = true;
             WDDialogUtil.showLoadingDialog(getContext());
             WDRequest request = new WDRequest(getActivity());
             request.setDelegate(this);
@@ -113,6 +121,7 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
                 e.printStackTrace();
             }
 
+            isLoading = false;
             WDDialogUtil.dismissDialog(getContext());
 
         }
@@ -121,11 +130,12 @@ public class AccountFragment extends TitleLayoutFragment implements WDRequest.WD
     @Override
     public void requestFail(WDRequest req, String message) {
         Log.i("Account_Category", "fail");
+
+        isLoading = false;
         WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
-                initial = false;
-                initData();
+                loadData();
             }
         });
     }

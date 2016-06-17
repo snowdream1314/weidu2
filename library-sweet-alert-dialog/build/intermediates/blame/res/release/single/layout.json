@@ -44,12 +44,12 @@
         "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\21.0.0\\res\\layout\\abc_screen_toolbar.xml"
     },
     {
-        "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_view_list_nav_layout.xml",
-        "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\21.0.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
-    },
-    {
         "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_menu_item_layout.xml",
         "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\21.0.0\\res\\layout\\abc_action_menu_item_layout.xml"
+    },
+    {
+        "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\release\\layout\\abc_action_bar_view_list_nav_layout.xml",
+        "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\21.0.0\\res\\layout\\abc_action_bar_view_list_nav_layout.xml"
     },
     {
         "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\release\\layout\\abc_popup_menu_item_layout.xml",

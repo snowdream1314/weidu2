@@ -44,12 +44,12 @@
         "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\21.0.0\\res\\drawable\\abc_cab_background_top_material.xml"
     },
     {
-        "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\success_bow.xml",
-        "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\bundles\\debug\\res\\drawable\\success_bow.xml"
-    },
-    {
         "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_cab_background_internal_bg.xml",
         "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\exploded-aar\\com.android.support\\appcompat-v7\\21.0.0\\res\\drawable\\abc_cab_background_internal_bg.xml"
+    },
+    {
+        "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\success_bow.xml",
+        "source": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\bundles\\debug\\res\\drawable\\success_bow.xml"
     },
     {
         "merged": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-sweet-alert-dialog\\build\\intermediates\\res\\merged\\androidTest\\debug\\drawable\\abc_switch_thumb_material.xml",
