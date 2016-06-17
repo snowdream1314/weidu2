@@ -15,6 +15,7 @@ import com.caibo.weidu.R;
 import com.caibo.weidu.main.account.AccountFragment;
 import com.caibo.weidu.main.like.LikeFragment;
 import com.caibo.weidu.main.more.MoreFragment;
+import com.caibo.weidu.util.AppUtil;
 import com.caibo.weidu.util.UserUtil;
 import com.caibo.weidu.util.WDRequest;
 import com.nostra13.universalimageloader.core.ImageLoader;
@@ -44,6 +45,9 @@ public class MainActivity extends FragmentActivity implements WDRequest.WDReques
             request.setDelegate(this);
             request.register(UserUtil.getDeviceId(this));
         }
+
+        //添加快捷键
+        AppUtil.addShortcut(this);
     }
 
     private void initTabHost() {
@@ -98,7 +102,7 @@ public class MainActivity extends FragmentActivity implements WDRequest.WDReques
             if (!isExit) {
 
                 isExit = true;
-                Toast.makeText(MainActivity.this, "再按一次后退键退出程序", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainActivity.this, "再按一次后退键退出程序!", Toast.LENGTH_SHORT).show();
 
                 new CountDownTimer(2200, 2200) {
                     @Override

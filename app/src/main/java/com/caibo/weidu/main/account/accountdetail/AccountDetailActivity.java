@@ -3,6 +3,7 @@ package com.caibo.weidu.main.account.accountdetail;
 import android.app.Activity;
 import android.content.ClipboardManager;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -20,6 +21,7 @@ import com.caibo.weidu.util.StringUtil;
 import com.caibo.weidu.util.WDDialogUtil;
 import com.caibo.weidu.util.WDImageLoaderUtil;
 import com.caibo.weidu.util.WDRequest;
+import com.caibo.weidu.widget.CopyPopupWindow;
 
 import org.json.JSONObject;
 
@@ -95,9 +97,7 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
                     }
                     break;
                 case R.id.ll_subscribe_layout:
-                    ClipboardManager cm = (ClipboardManager) getSystemService(AccountDetailActivity.CLIPBOARD_SERVICE);
-                    cm.setText(accountWxNo.getText());
-                    Toast.makeText(AccountDetailActivity.this, accountWxNo.getText() + "已经复制到系统剪贴板", Toast.LENGTH_SHORT).show();
+                    copy(accountWxNo);
 
                     Intent intent = new Intent(AccountDetailActivity.this, AccountSubscribeActivity.class);
                     intent.putExtra("account_wx_name", accountWxNo.getText());
@@ -106,6 +106,12 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
             }
         }
     };
+
+    private void copy(TextView tv) {
+        ClipboardManager cm = (ClipboardManager) getSystemService(AccountDetailActivity.CLIPBOARD_SERVICE);
+        cm.setText(tv.getText());
+        Toast.makeText(AccountDetailActivity.this, tv.getText() + "已经复制到系统剪贴板", Toast.LENGTH_SHORT).show();
+    }
 
     private void initData() {
 
@@ -133,17 +139,11 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
                 accountName.setText(dataJson.getString("a_name"));
                 accountWxNo.setText(dataJson.getString("a_wx_no"));
 
-                if (StringUtil.isTrimBlank(dataJson.getString("a_desc"))) {
-                    functionIntro.setText("暂无介绍");
-                } else {
-                    functionIntro.setText(dataJson.getString("a_desc"));
-                }
+                functionIntro.setText(StringUtil.isTrimBlank(dataJson.getString("a_desc")) ? "暂无介绍" : dataJson.getString("a_desc"));
+                functionIntro.setOnLongClickListener(copyActionListener);
 
-                if(StringUtil.isTrimBlank(dataJson.getString("a_valid_reason"))) {
-                    authenticationInfo.setText("暂无认证信息");
-                } else {
-                    authenticationInfo.setText(dataJson.getString("a_valid_reason"));
-                }
+                authenticationInfo.setText(StringUtil.isTrimBlank(dataJson.getString("a_valid_reason")) ? "暂无介绍" : dataJson.getString("a_valid_reason"));
+                authenticationInfo.setOnLongClickListener(copyActionListener);
 
                 if (StringUtil.isTrimBlank(dataJson.getString("a_url"))) {
                     urlLayout.setVisibility(View.GONE);
@@ -219,4 +219,17 @@ public class AccountDetailActivity extends TitleLayoutActivity implements WDRequ
         }
 
     }
+
+
+    private View.OnLongClickListener copyActionListener = new View.OnLongClickListener() {
+        @Override
+        public boolean onLongClick(View v) {
+            CopyPopupWindow popupWindow = new CopyPopupWindow(AccountDetailActivity.this, ((TextView)v).getText().toString());
+            popupWindow.setOutsideTouchable(true);
+            popupWindow.setBackgroundDrawable(new ColorDrawable());
+            popupWindow.showPopupWindow(v);
+
+            return true;
+        }
+    };
 }

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="49dp"
+    android:layout_height="35dp"
+    android:background="@drawable/popup_post_menu_tag"
+    android:gravity="center">
+
+    <Button
+        android:id="@+id/btn_copy"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@null"
+        android:textSize="14sp"
+        android:textColor="#ffFFFFFF"
+        android:text="复制"/>
+
+</LinearLayout>
