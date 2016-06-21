@@ -86,7 +86,7 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
         });
 
         //下拉刷新
-        initRefreshLayout(view);
+//        initRefreshLayout(view);
 
         //加载更多
         mListView.setOnScrollListener(pullToLoadMoreDataListener);

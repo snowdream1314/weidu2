@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
 
-import com.baoyz.widget.PullRefreshLayout;
 import com.caibo.weidu.R;
 
 /**
@@ -34,30 +33,30 @@ public abstract class PullRequestMoreFragment extends TitleLayoutFragment {
     //加载更多
     public abstract void loadMoreData();
 
-    protected PullRefreshLayout refreshLayout;
+//    protected PullRefreshLayout refreshLayout;
 
     protected void initRefreshLayout(View view) {
-        initRefreshLayout(view, R.id.prl_refresh_layout);
+//        initRefreshLayout(view, R.id.prl_refresh_layout);
     }
 
     private void initRefreshLayout(View view, int resId) {
-        refreshLayout = (PullRefreshLayout) view.findViewById(resId);
-        if (refreshLayout != null) {
-            refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
-            refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    reloadData();
-                }
-            });
-        }
+//        refreshLayout = (PullRefreshLayout) view.findViewById(resId);
+//        if (refreshLayout != null) {
+//            refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+//            refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+//                @Override
+//                public void onRefresh() {
+//                    reloadData();
+//                }
+//            });
+//        }
 
     }
 
     protected void setRefreshing(boolean refreshing) {
-        if (refreshLayout != null) {
-            refreshLayout.setRefreshing(refreshing);
-        }
+//        if (refreshLayout != null) {
+//            refreshLayout.setRefreshing(refreshing);
+//        }
     }
 
 
@@ -65,7 +64,6 @@ public abstract class PullRequestMoreFragment extends TitleLayoutFragment {
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-
         }
 
         @Override

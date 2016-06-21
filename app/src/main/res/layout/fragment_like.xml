@@ -9,17 +9,25 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <com.baoyz.widget.PullRefreshLayout
-        android:id="@+id/prl_refresh_layout"
+    <edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView
+        android:id="@+id/lv_like"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <de.timroes.android.listview.EnhancedListView
-            android:id="@+id/lv_like"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-        </de.timroes.android.listview.EnhancedListView>
+    </edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView>
 
-    </com.baoyz.widget.PullRefreshLayout>
+
+    <!--<com.baoyz.widget.PullRefreshLayout-->
+        <!--android:id="@+id/prl_refresh_layout"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="match_parent">-->
+
+        <!--<de.timroes.android.listview.EnhancedListView-->
+            <!--android:id="@+id/lv_like"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent">-->
+        <!--</de.timroes.android.listview.EnhancedListView>-->
+
+    <!--</com.baoyz.widget.PullRefreshLayout>-->
 
 </LinearLayout>

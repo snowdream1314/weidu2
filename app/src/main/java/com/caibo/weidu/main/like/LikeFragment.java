@@ -3,6 +3,8 @@ package com.caibo.weidu.main.like;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -18,6 +20,7 @@ import com.caibo.weidu.R;
 import com.caibo.weidu.base.PullRequestMoreFragment;
 import com.caibo.weidu.bean.Account;
 import com.caibo.weidu.main.account.accountdetail.AccountDetailActivity;
+import com.caibo.weidu.util.AppUtil;
 import com.caibo.weidu.util.JsonUtil;
 import com.caibo.weidu.util.WDDialogUtil;
 import com.caibo.weidu.util.WDImageLoaderUtil;
@@ -29,20 +32,31 @@ import com.google.gson.reflect.TypeToken;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
 import de.timroes.android.listview.EnhancedListView;
+import edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView;
+import edu.swu.pulltorefreshswipemenulistview.library.pulltorefresh.interfaces.IXListViewListener;
+import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.bean.SwipeMenu;
+import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.bean.SwipeMenuItem;
+import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.interfaces.OnMenuItemClickListener;
+import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.interfaces.SwipeMenuCreator;
+import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LikeFragment extends PullRequestMoreFragment implements WDRequest.WDRequestDelegate{
+public class LikeFragment extends PullRequestMoreFragment implements WDRequest.WDRequestDelegate, IXListViewListener {
 
     private View rootView;
-    private EnhancedListView mListView;
+//    private EnhancedListView mListView;
+    private PullToRefreshSwipeMenuListView mListView;
     private List<Account> accounts = new ArrayList<Account>();
     private Adapter adapter;
     private boolean initial = false;
@@ -66,14 +80,15 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
 
             initData();
 
-            mListView = (EnhancedListView) rootView.findViewById(R.id.lv_like);
+            mListView = (PullToRefreshSwipeMenuListView) rootView.findViewById(R.id.lv_like);
             adapter = new Adapter(getActivity(), accounts);
             mListView.setAdapter(adapter);
 
             mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                 @Override
                 public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                    Account account = accounts.get(position);
+                    Account account = accounts.get(position - 1);
+                    Log.i("position", String.valueOf(position));
                     Intent intent = new Intent(getActivity(), AccountDetailActivity.class);
                     intent.putExtra("account_name", account.getA_name());
                     intent.putExtra("account_id", account.getA_id());
@@ -82,10 +97,41 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
             });
 
             //下拉刷新
-            initRefreshLayout(rootView);
+//            initRefreshLayout(rootView);
 
             //加载更多
             mListView.setOnScrollListener(pullToLoadMoreDataListener);
+
+            mListView.setPullRefreshEnable(true);
+            mListView.setPullLoadEnable(false);
+            mListView.setSwipeEnable(true);
+
+            mListView.setXListViewListener(LikeFragment.this);
+
+            SwipeMenuCreator creator = new SwipeMenuCreator() {
+                @Override
+                public void create(SwipeMenu menu) {
+                    SwipeMenuItem delete = new SwipeMenuItem(getContext());
+                    delete.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
+                    delete.setIcon(R.mipmap.like_delete_icon);
+                    delete.setWidth(AppUtil.dip2px(getActivity(), 120));
+                    menu.addMenuItem(delete);
+                }
+            };
+            mListView.setMenuCreator(creator);
+
+            mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+                @Override
+                public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+                    Account account = accounts.get(position - 1);
+                    WDRequest request = new WDRequest(getContext());
+                    request.setDelegate(LikeFragment.this);
+                    request.favorite_remove(account.getA_id());
+                    accounts.remove(position);
+                    empty = accounts.size() == 0 ? true : false;
+                    adapter.notifyDataSetChanged();
+                }
+            });
 
             //滑动删除
 //            mListView.setDismissCallback(new EnhancedListView.OnDismissCallback() {
@@ -138,6 +184,20 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
         return rootView;
     }
 
+    public void onRefresh() {
+        SimpleDateFormat df = new SimpleDateFormat("HH:mm", Locale.getDefault());
+        RefreshTime.setRefreshTime(getContext(), df.format(new Date()));
+        mListView.setRefreshTime(RefreshTime.getRefreshTime(getContext()));
+        reloadData();
+    }
+
+    public void onLoadMore() {
+        if (current_page>=1 && total_page>current_page) {
+            mListView.setRefreshTime(RefreshTime.getRefreshTime(getContext()));
+            loadMoreData();
+        }
+    }
+
     private void initData() {
         if (!initial) {
             initial = true;
@@ -178,7 +238,7 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
                 total_page = (int) Math.ceil(total_count*1.0/20);
                 empty = total_page == 0 ? true : false;
                 current_page ++;
-
+                Log.i("current_page",String.valueOf(current_page));
                 if (current_page == 1) {
                     accounts.clear();
                 }
@@ -196,6 +256,8 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
                 e.printStackTrace();
             }
 
+            mListView.stopRefresh();
+            mListView.stopLoadMore();
             isLoading = false;
             setRefreshing(false);
             WDDialogUtil.dismissDialog(getContext());
@@ -213,6 +275,8 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
     public void requestFail(WDRequest req, String message) {
         Log.i("favorite_list", "fail");
 
+        mListView.stopRefresh();
+        mListView.stopLoadMore();
         isLoading = false;
         setRefreshing(false);
         WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {

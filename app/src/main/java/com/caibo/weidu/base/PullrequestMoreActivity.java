@@ -2,7 +2,6 @@ package com.caibo.weidu.base;
 
 import android.widget.AbsListView;
 
-import com.baoyz.widget.PullRefreshLayout;
 import com.caibo.weidu.R;
 
 public abstract class PullRequestMoreActivity extends TitleLayoutActivity {
@@ -24,30 +23,30 @@ public abstract class PullRequestMoreActivity extends TitleLayoutActivity {
     //加载更多
     public abstract void loadMoreData();
 
-    protected PullRefreshLayout refreshLayout;
+//    protected PullRefreshLayout refreshLayout;
 
     protected void initRefreshLayout() {
-        initRefreshLayout(R.id.prl_refresh_layout);
+//        initRefreshLayout(R.id.prl_refresh_layout);
     }
 
     private void initRefreshLayout(int resId) {
-        refreshLayout = (PullRefreshLayout) findViewById(resId);
-        if (refreshLayout != null) {
-            refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
-            refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
-                @Override
-                public void onRefresh() {
-                    reloadData();
-                }
-            });
-        }
+//        refreshLayout = (PullRefreshLayout) findViewById(resId);
+//        if (refreshLayout != null) {
+//            refreshLayout.setRefreshStyle(PullRefreshLayout.STYLE_SMARTISAN);
+//            refreshLayout.setOnRefreshListener(new PullRefreshLayout.OnRefreshListener() {
+//                @Override
+//                public void onRefresh() {
+//                    reloadData();
+//                }
+//            });
+//        }
 
     }
 
     protected void setRefreshing(boolean refreshing) {
-        if (refreshLayout != null) {
-            refreshLayout.setRefreshing(refreshing);
-        }
+//        if (refreshLayout != null) {
+//            refreshLayout.setRefreshing(refreshing);
+//        }
     }
 
 
