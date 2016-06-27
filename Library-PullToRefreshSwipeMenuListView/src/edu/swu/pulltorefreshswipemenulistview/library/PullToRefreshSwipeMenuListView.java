@@ -77,7 +77,7 @@ public class PullToRefreshSwipeMenuListView extends ListView implements OnScroll
 
 	//enable or disable swipe
 	//default is enable
-	private boolean mEnableSwipe = false;//增加设置控制滑动删除
+	private boolean mEnableSwipe = false;//增加设置控制滑动删除，默认不开启
 
 	private final static int SCROLL_DURATION = 400;
 	private final static int PULL_LOAD_MORE_DELTA = 50;

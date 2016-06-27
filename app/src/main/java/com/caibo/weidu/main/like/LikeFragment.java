@@ -28,6 +28,8 @@ import com.caibo.weidu.util.WDRequest;
 import com.caibo.weidu.viewholder.EmptyView;
 import com.caibo.weidu.viewholder.ViewHolder;
 import com.google.gson.reflect.TypeToken;
+import com.snowdream.enhancedpulltorefreshlistview.EnhancedPullToRefreshListView;
+import com.snowdream.enhancedpulltorefreshlistview.pulltorefresh.interfaces.IXListViewListener;
 
 import org.json.JSONObject;
 
@@ -40,9 +42,6 @@ import java.util.Locale;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
-import de.timroes.android.listview.EnhancedListView;
-import edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView;
-import edu.swu.pulltorefreshswipemenulistview.library.pulltorefresh.interfaces.IXListViewListener;
 import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.bean.SwipeMenu;
 import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.bean.SwipeMenuItem;
 import edu.swu.pulltorefreshswipemenulistview.library.swipemenu.interfaces.OnMenuItemClickListener;
@@ -55,8 +54,8 @@ import edu.swu.pulltorefreshswipemenulistview.library.util.RefreshTime;
 public class LikeFragment extends PullRequestMoreFragment implements WDRequest.WDRequestDelegate, IXListViewListener {
 
     private View rootView;
-//    private EnhancedListView mListView;
-    private PullToRefreshSwipeMenuListView mListView;
+//    private PullToRefreshSwipeMenuListView mListView;
+    private EnhancedPullToRefreshListView mListView;
     private List<Account> accounts = new ArrayList<Account>();
     private Adapter adapter;
     private boolean initial = false;
@@ -80,7 +79,7 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
 
             initData();
 
-            mListView = (PullToRefreshSwipeMenuListView) rootView.findViewById(R.id.lv_like);
+            mListView = (EnhancedPullToRefreshListView) rootView.findViewById(R.id.lv_like);
             adapter = new Adapter(getActivity(), accounts);
             mListView.setAdapter(adapter);
 
@@ -102,77 +101,76 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
             //加载更多
             mListView.setOnScrollListener(pullToLoadMoreDataListener);
 
-            mListView.setPullRefreshEnable(true);
-            mListView.setPullLoadEnable(false);
-            mListView.setSwipeEnable(true);
-
+            mListView.setPullRefreshEnable(true);//开启下拉刷新
+            mListView.setPullLoadEnable(false);//关闭加载更多，使用滚动监听
+            mListView.disableSwipeToDismiss();//禁止滑动删除
+//
             mListView.setXListViewListener(LikeFragment.this);
 
-            SwipeMenuCreator creator = new SwipeMenuCreator() {
+            mListView.setDismissCallback(new EnhancedPullToRefreshListView.OnDismissCallback() {
                 @Override
-                public void create(SwipeMenu menu) {
-                    SwipeMenuItem delete = new SwipeMenuItem(getContext());
-                    delete.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
-                    delete.setIcon(R.mipmap.like_delete_icon);
-                    delete.setWidth(AppUtil.dip2px(getActivity(), 120));
-                    menu.addMenuItem(delete);
-                }
-            };
-            mListView.setMenuCreator(creator);
+                public EnhancedPullToRefreshListView.Undoable onDismiss(EnhancedPullToRefreshListView listView, int position) {
+                    final int deletePosition = position;
+                    final Account account = accounts.get(position);
+                    final String account_id = accounts.get(position).getA_id();
+                    if (deletePosition<accounts.size()) {
+                        accounts.remove(deletePosition);
+                        empty = accounts.size() == 0 ? true : false;
+                        adapter.notifyDataSetChanged();
+                    }
 
-            mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
-                @Override
-                public void onMenuItemClick(int position, SwipeMenu menu, int index) {
-                    Account account = accounts.get(position - 1);
-                    WDRequest request = new WDRequest(getContext());
-                    request.setDelegate(LikeFragment.this);
-                    request.favorite_remove(account.getA_id());
-                    accounts.remove(position);
-                    empty = accounts.size() == 0 ? true : false;
-                    adapter.notifyDataSetChanged();
+                    return new EnhancedPullToRefreshListView.Undoable() {
+                        @Override
+                        public void undo() {
+                            accounts.add(deletePosition, account);
+                            empty = accounts.size() == 0 ? true : false;
+                            adapter.notifyDataSetChanged();
+                        }
+
+                        @Override
+                        public String getTitle() {
+                            return null;
+                        }
+
+                        @Override
+                        public void discard() {
+                            WDRequest request = new WDRequest(getContext());
+                            request.setDelegate(LikeFragment.this);
+                            request.favorite_remove(account_id);
+                        }
+                    };
                 }
             });
-
-            //滑动删除
-//            mListView.setDismissCallback(new EnhancedListView.OnDismissCallback() {
+            mListView.enableSwipeToDismiss();
+            mListView.setSwipeDirection(EnhancedPullToRefreshListView.SwipeDirection.BOTH);
+            mListView.setUndoHideDelay(2500);
+            mListView.setUndoStyle(EnhancedPullToRefreshListView.UndoStyle.COLLAPSED_POPUP);
+            mListView.setRequireTouchBeforeDismiss(false);
+//
+//            SwipeMenuCreator creator = new SwipeMenuCreator() {
 //                @Override
-//                public EnhancedListView.Undoable onDismiss(EnhancedListView listView, int position) {
-//                    final int deletePosition = position;
-//                    final Account account = accounts.get(position);
-//                    final String accountId = accounts.get(position).getA_id();
-//                    if (deletePosition<accounts.size()) {
-//                        accounts.remove(deletePosition);
-//                        empty = accounts.size() == 0 ? true : false;
-//                        adapter.notifyDataSetChanged();
-//                    }
+//                public void create(SwipeMenu menu) {
+//                    SwipeMenuItem delete = new SwipeMenuItem(getContext());
+//                    delete.setBackground(new ColorDrawable(Color.rgb(0xF9, 0x3F, 0x25)));
+//                    delete.setIcon(R.mipmap.like_delete_icon);
+//                    delete.setWidth(AppUtil.dip2px(getActivity(), 120));
+//                    menu.addMenuItem(delete);
+//                }
+//            };
+//            mListView.setMenuCreator(creator);
 //
-//                    return new EnhancedListView.Undoable() {
-//                        @Override
-//                        public void undo() {
-//                            accounts.add(deletePosition, account);
-//                            empty = accounts.size() == 0 ? true : false;
-//                            adapter.notifyDataSetChanged();
-//                        }
-//
-//                        @Override
-//                        public String getTitle() {
-//                            return null;
-//                        }
-//
-//                        @Override
-//                        public void discard() {
-//                            WDRequest request = new WDRequest(getContext());
-//                            request.setDelegate(LikeFragment.this);
-//                            request.favorite_remove(accountId);
-//                        }
-//                    };
+//            mListView.setOnMenuItemClickListener(new OnMenuItemClickListener() {
+//                @Override
+//                public void onMenuItemClick(int position, SwipeMenu menu, int index) {
+//                    Account account = accounts.get(position);
+//                    WDRequest request = new WDRequest(getContext());
+//                    request.setDelegate(LikeFragment.this);
+//                    request.favorite_remove(account.getA_id());
+//                    accounts.remove(position);
+//                    empty = accounts.size() == 0 ? true : false;
+//                    adapter.notifyDataSetChanged();
 //                }
 //            });
-//            mListView.enableSwipeToDismiss();
-//            mListView.setSwipeDirection(EnhancedListView.SwipeDirection.BOTH);
-//            mListView.setUndoHideDelay(2500);
-//            mListView.setUndoStyle(EnhancedListView.UndoStyle.COLLAPSED_POPUP);
-//            mListView.setRequireTouchBeforeDismiss(false);
 
         }
 
@@ -192,10 +190,10 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
     }
 
     public void onLoadMore() {
-        if (current_page>=1 && total_page>current_page) {
-            mListView.setRefreshTime(RefreshTime.getRefreshTime(getContext()));
-            loadMoreData();
-        }
+//        if (current_page>=1 && total_page>current_page) {
+//            mListView.setRefreshTime(RefreshTime.getRefreshTime(getContext()));
+//            loadMoreData();
+//        }
     }
 
     private void initData() {
@@ -357,7 +355,11 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
 
                 WDImageLoaderUtil.displayImage(account.getA_logo(), accountImage, R.mipmap.account_image);
                 accountName.setText(account.getA_name());
-                accountWxNo.setText(account.getA_wx_no());
+                if (account.getA_wx_no().length() > 10) {
+                    accountWxNo.setText(account.getA_wx_no().substring(0, 10) + "...");
+                } else {
+                    accountWxNo.setText(account.getA_wx_no());
+                }
                 accountNotes.setText(account.getA_desc());
                 switch (Integer.valueOf(account.getA_rank())) {
                     case 1:

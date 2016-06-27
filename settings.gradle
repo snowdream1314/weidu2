@@ -1,1 +1,1 @@
-include ':app',':library-EnhancedListView',':library-sweet-alert-dialog',':library-PullToRefreshSwipeMenuListView'
+include ':app', ':library-sweet-alert-dialog', ':library-PullToRefreshSwipeMenuListView', ':library-stickynavlayout',':library-EnhancedPullToRefreshListView'

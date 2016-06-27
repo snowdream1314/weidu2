@@ -36,7 +36,6 @@ import java.util.List;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 import de.hdodenhof.circleimageview.CircleImageView;
-import de.timroes.android.listview.EnhancedListView;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -47,7 +46,7 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
     private String ac_name;
     private boolean initial = false;
 
-    private EnhancedListView mListView;
+    private ListView mListView;
     private Adapter adapter;
     private List<Account> accounts = new ArrayList<Account>();
 
@@ -71,7 +70,7 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
 
         View view = inflater.inflate(R.layout.accountcat_cell_fragment, null);
 
-        mListView = (EnhancedListView) view.findViewById(R.id.lv_accountCat);
+        mListView = (ListView) view.findViewById(R.id.id_stickynavlayout_innerscrollview);
         adapter = new Adapter(mContext, accounts);
         mListView.setAdapter(adapter);
         mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -105,7 +104,7 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
     public void loadData() {
         if (!isLoading) {
             isLoading = true;
-            WDDialogUtil.showLoadingDialog(getContext());
+            WDDialogUtil.showLoadingDialog(mContext);
             WDRequest request = new WDRequest(mContext);
             request.setDelegate(AccountFragment.this);
             request.category_accounts(ac_id, current_page + 1);
@@ -167,7 +166,7 @@ public class AccountFragment extends PullRequestMoreFragment implements WDReques
 
         isLoading = false;
         setRefreshing(false);
-        WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {
+        WDDialogUtil.changeLoadingDialogToError(mContext, message, true, new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
                 reloadData();

@@ -9,8 +9,51 @@
 
     <include layout="@layout/layout_title"/>
 
+    <in.srain.cube.views.ptr.PtrClassicFrameLayout
+        xmlns:cube_ptr="http://schemas.android.com/apk/res-auto"
+        xmlns:pst="http://schemas.android.com/apk/res-auto"
+        xmlns:stick="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/store_house_ptr_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        cube_ptr:ptr_duration_to_close="300"
+        cube_ptr:ptr_duration_to_close_header="2000"
+        cube_ptr:ptr_keep_header_when_refresh="true"
+        cube_ptr:ptr_pull_to_fresh="false"
+        cube_ptr:ptr_ratio_of_header_height_to_refresh="1.2"
+        cube_ptr:ptr_resistance="1.7">
+
+    <com.gxz.library.StickyNavLayout
+        android:id="@+id/id_stick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        stick:isStickNav="false">
+
+    <LinearLayout
+        android:id="@+id/id_stickynavlayout_topview"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/container_merchant_detail"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:background="#ffF4F4F4"
+            android:orientation="vertical">
+
+        </LinearLayout>
+        <!--<TextView-->
+            <!--android:id="@+id/tv_topview"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="50dp"-->
+            <!--android:text="测试一下topview"-->
+            <!--android:textSize="16sp"-->
+            <!--android:textColor="#000000"/>-->
+    </LinearLayout>
+
     <com.gxz.PagerSlidingTabStrip
-        android:id="@+id/pst_pagerSlidingTab"
+        android:id="@+id/id_stickynavlayout_indicator"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:textSize="16sp"
@@ -25,8 +68,12 @@
         pst:pstsScrollOffset="40dp"/>
 
     <android.support.v4.view.ViewPager
-        android:id="@+id/vp_viewPager"
+        android:id="@+id/id_stickynavlayout_viewpager"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
+    </com.gxz.library.StickyNavLayout>
+
+    </in.srain.cube.views.ptr.PtrClassicFrameLayout>
 
 </LinearLayout>

@@ -9,13 +9,12 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView
+    <com.snowdream.enhancedpulltorefreshlistview.EnhancedPullToRefreshListView
         android:id="@+id/lv_like"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </edu.swu.pulltorefreshswipemenulistview.library.PullToRefreshSwipeMenuListView>
-
+    </com.snowdream.enhancedpulltorefreshlistview.EnhancedPullToRefreshListView>
 
     <!--<com.baoyz.widget.PullRefreshLayout-->
         <!--android:id="@+id/prl_refresh_layout"-->

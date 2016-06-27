@@ -1,6 +1,6 @@
 [
     {
-        "outputFile": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\Library-PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\values-v14\\values-v14.xml",
+        "outputFile": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-PullToRefreshSwipeMenuListView\\build\\intermediates\\res\\merged\\release\\values-v14\\values-v14.xml",
         "map": [
             {
                 "to": {
@@ -12,7 +12,7 @@
                     "endOffset": 201
                 },
                 "from": {
-                    "file": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\Library-PullToRefreshSwipeMenuListView\\res\\values-v14\\styles.xml",
+                    "file": "C:\\Users\\CB-Ye\\my_workspace\\weidu2\\library-PullToRefreshSwipeMenuListView\\res\\values-v14\\styles.xml",
                     "position": {
                         "startLine": 7,
                         "startColumn": 4,
