@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -809,7 +810,7 @@ public class EnhancedPullToRefreshListView extends ListView implements AbsListVi
                         updateFooterHeight(-deltaY / OFFSET_RADIO);
                     }
                 }
-
+                Log.i("mSwipeEnabled", String.valueOf(mSwipeEnabled));
                 //水平方向的滑动
                 if (mTouchState == TOUCH_STATE_X && mSwipeEnabled) {//增加是否允许滑动判断
                     if (mVelocityTracker == null || mSwipePaused) {
@@ -876,6 +877,7 @@ public class EnhancedPullToRefreshListView extends ListView implements AbsListVi
                     resetHeaderHeight();
                 }
 
+                Log.i("mSwipeEnabled", String.valueOf(mSwipeEnabled));
                 //水平方向的滑动
                 if (mTouchState == TOUCH_STATE_X && mSwipeEnabled) {//增加是否允许滑动判断
                     if (mVelocityTracker == null) {

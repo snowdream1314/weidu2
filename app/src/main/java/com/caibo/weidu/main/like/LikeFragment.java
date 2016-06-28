@@ -103,7 +103,7 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
 
             mListView.setPullRefreshEnable(true);//开启下拉刷新
             mListView.setPullLoadEnable(false);//关闭加载更多，使用滚动监听
-            mListView.disableSwipeToDismiss();//禁止滑动删除
+//            mListView.disableSwipeToDismiss();//禁止滑动删除
 //
             mListView.setXListViewListener(LikeFragment.this);
 
@@ -280,6 +280,7 @@ public class LikeFragment extends PullRequestMoreFragment implements WDRequest.W
         WDDialogUtil.changeLoadingDialogToError(getContext(), message, true, new SweetAlertDialog.OnSweetClickListener() {
             @Override
             public void onClick(SweetAlertDialog sweetAlertDialog) {
+                Log.i("fail and reload", "reload");
                 reloadData();
             }
         });
